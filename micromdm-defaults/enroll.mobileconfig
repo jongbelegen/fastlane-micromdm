@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>PayloadContent</key>
+      <dict>
+        <key>Challenge</key>
+        <string>micromdm</string>
+        <key>Key Type</key>
+        <string>RSA</string>
+        <key>Key Usage</key>
+        <integer>5</integer>
+        <key>Keysize</key>
+        <integer>2048</integer>
+        <key>Name</key>
+        <string>Device Management Identity Certificate</string>
+        <key>Subject</key>
+        <array>
+          <array>
+            <array>
+              <string>O</string>
+              <string>MicroMDM</string>
+            </array>
+          </array>
+          <array>
+            <array>
+              <string>CN</string>
+              <string>MicroMDM Identity (%ComputerName%)</string>
+            </array>
+          </array>
+        </array>
+        <key>URL</key>
+        <string>https://mdm.fastlane.events/scep</string>
+      </dict>
+      <key>PayloadDescription</key>
+      <string>Configures SCEP</string>
+      <key>PayloadDisplayName</key>
+      <string>SCEP</string>
+      <key>PayloadIdentifier</key>
+      <string>com.github.micromdm.micromdm.enroll.scep</string>
+      <key>PayloadOrganization</key>
+      <string>MicroMDM</string>
+      <key>PayloadType</key>
+      <string>com.apple.security.scep</string>
+      <key>PayloadUUID</key>
+      <string>EF367E25-4BD0-491C-8E10-CBA97EBEA908</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+    </dict>
+    <dict>
+      <key>AccessRights</key>
+      <integer>8191</integer>
+      <key>CheckInURL</key>
+      <string>https://mdm.fastlane.events/mdm/checkin</string>
+      <key>CheckOutWhenRemoved</key>
+      <true/>
+      <key>IdentityCertificateUUID</key>
+      <string>EF367E25-4BD0-491C-8E10-CBA97EBEA908</string>
+      <key>PayloadDescription</key>
+      <string>Enrolls with the MDM server</string>
+      <key>PayloadIdentifier</key>
+      <string>com.github.micromdm.micromdm.enroll.mdm</string>
+      <key>PayloadOrganization</key>
+      <string>MicroMDM</string>
+      <key>PayloadType</key>
+      <string>com.apple.mdm</string>
+      <key>PayloadUUID</key>
+      <string>8DC88B5E-5C81-4904-B7CF-D73276615EAE</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>ServerCapabilities</key>
+      <array>
+        <string>com.apple.mdm.per-user-connections</string>
+        <string>com.apple.mdm.bootstraptoken</string>
+      </array>
+      <key>ServerURL</key>
+      <string>https://mdm.fastlane.events/mdm/connect</string>
+      <key>SignMessage</key>
+      <true/>
+      <key>Topic</key>
+      <string>com.apple.mgmt.External.980b6421-2edc-4d9a-aea7-10cd7610ad2b</string>
+    </dict>
+  </array>
+  <key>PayloadDescription</key>
+  <string>The server may alter your settings</string>
+  <key>PayloadDisplayName</key>
+  <string>Enrollment Profile</string>
+  <key>PayloadIdentifier</key>
+  <string>com.github.micromdm.micromdm.enroll</string>
+  <key>PayloadOrganization</key>
+  <string>MicroMDM</string>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>DE6F04F2-B3D4-495D-AE7E-13002EA9E64D</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>

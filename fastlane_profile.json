@@ -1,0 +1,33 @@
+{
+  "payload_identifier": "com.fastlane.restrictions",
+  "payload_uuid": "1C5D6E0B-9D1A-4F88-B8AC-8A6C7B3389B0",
+  "payload_organization": "Fastlane B.V.",
+  "payload_type": "Configuration",
+  "payload_display_name": "Fastlane App Restrictions",
+  "payload_description": "Restricts app usage to Fastlane applications only",
+  "payload_version": 1,
+  "payload_scope": "System",
+  "payload_content": [
+    {
+      "payload_type": "com.apple.applicationaccess",
+      "payload_identifier": "com.fastlane.restrictions.applicationaccess",
+      "payload_uuid": "2D6E7F1C-AE2B-5F99-C9BD-9B7D8C4499C1",
+      "payload_display_name": "Application Restrictions",
+      "payload_description": "Configures application restrictions",
+      "payload_version": 1,
+      "allowAppInstallation": false,
+      "allowUIAppInstallation": false,
+      "allowAutomaticAppDownloads": false,
+      "forceAppVerification": true,
+      "allowEnterpriseAppTrust": true,
+      "allowAppRemoval": false,
+      "allowSystemAppRemoval": false,
+      "familyControlsEnabled": true,
+      "whitelistedAppBundleIDs": [
+        "events.fastlane.workstation",
+        "events.fastlane.workstation.canary",
+        "events.fastlane.gatekeeper"
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,287 @@
+@baseUrl = https://mdm.fastlane.events
+@apiKey = iedereen-met-dit-wachtwoord-kan-gekke-dingen-doen-op-onze-ipads
+@auth = Basic bWljcm9tZG06aWVkZXJlZW4tbWV0LWRpdC13YWNodHdvb3JkLWthbi1nZWtrZS1kaW5nZW4tZG9lbi1vcC1vbnplLWlwYWRz
+@deviceUdid = 00008020-000839480113802E
+@deviceSerial = F9FCW19LLMVY
+
+### Get all devices
+POST {{baseUrl}}/v1/devices HTTP/1.1
+Authorization: {{auth}}
+Accept: application/json
+Content-Type: application/json
+
+{}
+
+### Get a specific device info by UDID - requires another endpoint
+GET {{baseUrl}}/v1/devices/{{deviceUdid}} HTTP/1.1
+Authorization: {{auth}}
+Accept: application/json
+
+### Send push notification to trigger device check-in
+GET {{baseUrl}}/push/{{deviceUdid}} HTTP/1.1
+Authorization: {{auth}}
+Accept: application/json
+
+### Request device information
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "DeviceInformation",
+  "udid": "{{deviceUdid}}",
+  "queries": [
+    "SerialNumber", 
+    "UDID", 
+    "OSVersion", 
+    "BuildVersion", 
+    "DeviceName", 
+    "Model", 
+    "ModelName", 
+    "AvailableDeviceCapacity", 
+    "DeviceCapacity",
+    "IMEI",
+    "MEID",
+    "EthernetMACs",
+    "BluetoothMAC",
+    "WiFiMAC",
+    "ModemFirmwareVersion",
+    "IsSupervised",
+    "IsDeviceLocatorServiceEnabled",
+    "IsActivationLockEnabled",
+    "IsDoNotDisturbInEffect",
+    "DeviceID",
+    "OrganizationInfo",
+    "LastCloudBackupDate",
+    "AwaitingConfiguration",
+    "BatteryLevel",
+    "CellularTechnology"
+  ]
+}
+
+### Send raw command (for unsupported commands or custom fields)
+POST {{baseUrl}}/v1/commands/{{deviceUdid}} HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/xml
+Accept: application/json
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Command</key>
+    <dict>
+        <key>RequestType</key>
+        <string>ProfileList</string>
+        <key>ManagedOnly</key>
+        <false/>
+    </dict>
+</dict>
+</plist>
+
+### Clear command queue for a device
+DELETE {{baseUrl}}/v1/commands/{{deviceUdid}} HTTP/1.1
+Authorization: {{auth}}
+Accept: application/json
+
+### List command queue for a device
+GET {{baseUrl}}/v1/commands/{{deviceUdid}} HTTP/1.1
+Authorization: {{auth}}
+Accept: application/json
+
+### Sync DEP now
+POST {{baseUrl}}/v1/dep/syncnow HTTP/1.1
+Authorization: {{auth}}
+Accept: application/json
+
+### DEP Sync - Get specific DEP devices by serial numbers
+POST {{baseUrl}}/v1/dep/devices HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "serials": ["{{deviceSerial}}"]
+}
+
+### List profiles on a device
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "ProfileList",
+  "udid": "{{deviceUdid}}"
+}
+
+### Install profile on a device
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "InstallProfile",
+  "udid": "{{deviceUdid}}",
+  "payload": "base64_encoded_profile_data_here"
+}
+
+### Remove profile from a device
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "RemoveProfile",
+  "udid": "{{deviceUdid}}",
+  "identifier": "profile-identifier-here"
+}
+
+### Lock device
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "DeviceLock",
+  "udid": "{{deviceUdid}}",
+  "pin": "123456" 
+}
+
+### Erase device
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "EraseDevice",
+  "udid": "{{deviceUdid}}",
+  "pin": "123456"
+}
+
+### Restart device
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "RestartDevice",
+  "udid": "{{deviceUdid}}"
+}
+
+### Install App Store application
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "InstallApplication",
+  "udid": "{{deviceUdid}}",
+  "itunes_store_id": 123456789,
+  "options": {
+    "purchase_method": 1
+  }
+}
+
+### Install VPP application
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "InstallApplication",
+  "udid": "{{deviceUdid}}",
+  "itunes_store_id": 123456789,
+  "options": {
+    "purchase_method": 1
+  },
+  "identifiers": [
+    "vpp-app-assignment-id-here"
+  ]
+}
+
+### Install Enterprise application
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "InstallApplication",
+  "udid": "{{deviceUdid}}",
+  "manifest_url": "https://example.com/app/manifest.plist"
+}
+
+### Request installed applications list
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "InstalledApplicationList",
+  "udid": "{{deviceUdid}}"
+}
+
+### Request security info
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "SecurityInfo",
+  "udid": "{{deviceUdid}}"
+}
+
+### Request certificate list
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "CertificateList",
+  "udid": "{{deviceUdid}}"
+}
+
+### Request OS update status
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "OSUpdateStatus",
+  "udid": "{{deviceUdid}}"
+}
+
+### Request available OS updates
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "AvailableOSUpdates",
+  "udid": "{{deviceUdid}}"
+}
+
+### Schedule OS update scan
+POST {{baseUrl}}/v1/commands HTTP/1.1
+Authorization: {{auth}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "request_type": "ScheduleOSUpdateScan",
+  "udid": "{{deviceUdid}}"
+}

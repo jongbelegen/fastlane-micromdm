@@ -1,0 +1,45 @@
+# fly.toml app configuration file generated for micromdm-app on 2025-03-20T15:51:31+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'micromdm-app'
+primary_region = 'ams'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  MICROMDM_API_KEY = 'iedereen-met-dit-wachtwoord-kan-gekke-dingen-doen-op-onze-ipads'
+  MICROMDM_HTTP_ADDR = '0.0.0.0:8080'
+  MICROMDM_SERVER_URL = 'https://mdm.fastlane.events'
+  MICROMDM_TLS = 'false'
+  MICROMDM_WEBHOOK_URL = 'https://eohfigodcu4lxci.m.pipedream.net'
+
+[[mounts]]
+  source = 'micromdm_data'
+  destination = '/var/db/micromdm'
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 8080
+  processes = ['app']
+
+  [[services.ports]]
+    port = 80
+    handlers = ['http']
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ['tls', 'http']
+
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

@@ -1,0 +1,16 @@
+### Associate VPP App with Device
+POST https://vpp.itunes.apple.com/mdm/v2/assets/associate HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJleHBEYXRlIjoiMjAyNi0wMy0xNVQxODoyOToyOCswMDAwIiwidG9rZW4iOiJNSFhFdURnZCtZMW82QUNLR2E1SnZjUm9OS3J1SXAyMnQwUnkvaWQ5MTRFUVZmWWo2Y0RJRkp2V0E4aFp3SEVtNEVNRDcxYnArN05KUjBsbTRGR1ZxQlNWMVB3c1Z5N3hSWFRkcGNQQ1VYNGJYTW1xTXI1c21TOXBNdmtNN0Q3RnkxRHVBanhWZWVNM2JJUWloOE9WQnliWFl3SEFlakluUU5uTU5wcGdZNDhGdHR4ZWEvdmdoQWx0c2VYanY0VW4iLCJvcmdOYW1lIjoiRmFzdGxhbmUgQi5WLiJ9
+
+{
+  "assets": [
+    {
+      "adamId": "1644513968",
+      "pricingParam": "STDQ"
+    }
+  ],
+  "serialNumbers": [
+    "F9FCW19LLMVY"
+  ]
+}

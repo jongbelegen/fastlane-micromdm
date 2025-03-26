@@ -1,0 +1,12 @@
+{
+  "uuid": "e10f13f6-7817-4e36-a4d9-cf2da816970e",
+  "name": "Fastlane MicroMDM Blueprint",
+  "profile_ids": [
+    "fastlane-base"
+  ],
+  "skip_primary_setup_account_creation": false,
+  "set_primary_setup_account_as_regular_user": false,
+  "apply_at": [
+    "Enroll"
+  ]
+}
