@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>HasRemovalPasscode</key>
-	<false/>
+	<true/>
 	<key>PayloadContent</key>
 	<array>
 		<dict>
@@ -39,16 +39,28 @@
 			<string>Ziggo6496702</string>
 		</dict>
 		<dict>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.profileRemovalPassword.55f87465-a869-4ab0-9031-11ca1073641b</string>
+			<key>PayloadType</key>
+			<string>com.apple.profileRemovalPassword</string>
+			<key>PayloadUUID</key>
+			<string>55f87465-a869-4ab0-9031-11ca1073641b</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>RemovalPassword</key>
+			<string>killian</string>
+		</dict>
+		<dict>
 			<key>PayloadDescription</key>
 			<string>Configures restrictions</string>
 			<key>PayloadDisplayName</key>
 			<string>Restrictions</string>
 			<key>PayloadIdentifier</key>
-			<string>com.apple.applicationaccess.21C61D4F-258C-4445-ABAB-587959BD585D</string>
+			<string>com.apple.applicationaccess.7874E3B1-3EA0-4F3D-8F6F-46E140C295B0</string>
 			<key>PayloadType</key>
 			<string>com.apple.applicationaccess</string>
 			<key>PayloadUUID</key>
-			<string>21C61D4F-258C-4445-ABAB-587959BD585D</string>
+			<string>7874E3B1-3EA0-4F3D-8F6F-46E140C295B0</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>allowAccountModification</key>
@@ -170,9 +182,9 @@
 			<key>allowNotificationsModification</key>
 			<true/>
 			<key>allowOpenFromManagedToUnmanaged</key>
-			<false/>
+			<true/>
 			<key>allowOpenFromUnmanagedToManaged</key>
-			<false/>
+			<true/>
 			<key>allowPairedWatch</key>
 			<false/>
 			<key>allowPassbookWhileLocked</key>
@@ -286,6 +298,14 @@
 				<string>events.fastlane.workstation</string>
 				<string>events.fastlane.workstation.canary</string>
 				<string>events.fastlane.gatekeeper</string>
+				<string>events.fastlane.cashpoint</string>
+			</array>
+			<key>autonomousSingleAppModePermittedAppIDs</key>
+			<array>
+				<string>events.fastlane.workstation</string>
+				<string>events.fastlane.workstation.canary</string>
+				<string>events.fastlane.gatekeeper</string>
+				<string>events.fastlane.cashpoint</string>
 			</array>
 		</dict>
 	</array>
@@ -293,12 +313,10 @@
 	<string>Fastlane</string>
 	<key>PayloadIdentifier</key>
 	<string>fastlane-base</string>
-	<key>PayloadRemovalDisallowed</key>
-	<true/>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>ACD4BB0C-B08B-48A1-8FF1-259DF6442458</string>
+	<string>11B3F2C7-81A7-4491-B1E0-F3C21BDE7453</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
