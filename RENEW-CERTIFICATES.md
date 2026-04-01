@@ -209,6 +209,16 @@ pkcs7: signing time "..." is outside of certificate validity "..." to "..."
 
 **There is no way to renew a SCEP certificate remotely.** The device must re-enroll (factory reset + DEP auto-enrollment).
 
+### Custom patch: allow expired signing certificates (2026-04-01)
+
+We run a **forked version** of MicroMDM with a patch in `micromdm/pkg/crypto/helpers.go` (`PKCS7Verifier.Verify`). The patch allows devices with expired SCEP certificates to keep communicating instead of getting blocked with a 500 error. This means devices can still receive commands (e.g. `EraseDevice`, `InstallProfile`) even after their cert expires.
+
+**Why:** ~200 devices were enrolled with the default 1-year SCEP cert validity. Mass factory reset was not feasible. The patch lets them keep working until they naturally re-enroll (replacement, reset, etc.), at which point they get the new 50-year cert.
+
+**Trade-off:** Slightly weaker security — a compromised device key would be accepted even after cert expiry. Acceptable for an internal MDM fleet.
+
+**If upgrading MicroMDM upstream:** Re-apply this patch to `pkg/crypto/helpers.go`, or remove it once all devices have re-enrolled with 50-year certs. The Dockerfile builds from the local `micromdm/` submodule (not from GitHub upstream).
+
 ### Configuration
 
 The SCEP client certificate validity is controlled by `MICROMDM_SCEP_CLIENT_VALIDITY` (in days) in `fly.toml`.
@@ -226,6 +236,27 @@ Changed on 2026-03-27 after device `00008020-0005252A21F0402E` expired with the 
 3. The new SCEP certificate will use the configured validity (currently 50 years)
 
 Alternative: wipe remotely via Apple Business Manager (business.apple.com) — independent of MDM.
+
+**Note:** You cannot renew a device's SCEP certificate remotely. The device holds the private key — replacing the cert in the database won't help because it wouldn't match. Re-enrollment is the only way.
+
+### Verifying SCEP certificate validity after re-enrollment
+
+After re-enrolling a device, verify the new certificate has 50-year validity:
+
+```bash
+# 1. Download the database from Fly
+fly sftp get /var/db/micromdm/micromdm.db ./micromdm.db -a micromdm-app
+
+# 2. Run the check script
+cd scripts/
+go run check-scep-certs.go ../micromdm.db
+```
+
+New certificates should show `(50.0 yrs)`. Pass `--all` to see every certificate:
+
+```bash
+go run check-scep-certs.go ../micromdm.db --all
+```
 
 ## Tips
 

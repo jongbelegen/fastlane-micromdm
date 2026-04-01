@@ -1,21 +1,17 @@
-FROM golang:1.20-alpine AS builder
+FROM golang:1.20 AS builder
 
-WORKDIR /app
-RUN apk add --no-cache git
-RUN git clone https://github.com/micromdm/micromdm.git .
-RUN go build -o micromdm ./cmd/micromdm
-RUN go build -o mdmctl ./cmd/mdmctl
+WORKDIR /go/src/github.com/micromdm/micromdm/
+COPY micromdm/ .
+RUN make deps
+RUN make
 
 FROM alpine:latest
-WORKDIR /app
-COPY --from=builder /app/micromdm /app/micromdm
-COPY --from=builder /app/mdmctl /app/mdmctl
-
-# Create directory for the database file
-RUN mkdir -p /var/db/micromdm
+RUN apk --update add ca-certificates
+COPY --from=builder /go/src/github.com/micromdm/micromdm/build/linux/micromdm /usr/bin/
+COPY --from=builder /go/src/github.com/micromdm/micromdm/build/linux/mdmctl /usr/bin/
 
 EXPOSE 8080
 EXPOSE 443
 
-ENTRYPOINT ["/app/micromdm"]
-CMD ["serve"] 
+ENTRYPOINT ["micromdm"]
+CMD ["serve"]
